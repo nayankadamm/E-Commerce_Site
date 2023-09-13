@@ -7,4 +7,3 @@ export const apiSlice = createApi({
     endpoints: (builder) => ({})
 
 });
-
