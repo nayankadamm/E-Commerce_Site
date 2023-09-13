@@ -4,8 +4,12 @@ import Product from "../models/productModel.js";
 //to get all the products
 const getProducts = asyncHandler(async(req,res)=>{
     const products = await Product.find({});
-
-        res.json(products);
+        if(products){
+            res.json(products);
+        }
+        else{
+            res.status(400);
+        }
 })
 
 // to get one product by ID
@@ -14,8 +18,11 @@ const getOneProduct = asyncHandler(async(req,res)=>{
     if(product){
         res.json(product);
     }
-   res.status(404);
-    throw new Error("Product Not Found");
+    else{
+        res.status(404);
+        throw new Error("Product Not Found");
+    }
+  
 })
 
 export {getProducts,getOneProduct};
