@@ -5,30 +5,27 @@ import { useGetProductsQuery } from "../slices/productsApiSlices";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 const HomeScreen = () => {
+  const { data: products, isLoading, error } = useGetProductsQuery();
 
-    const{data:products,isLoading,error}= useGetProductsQuery();
-
-
-    return(
+  return (
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error.error}</Message>
+      ) : (
         <>
-        
-        {
-            
-            isLoading?(<Loader/>):error?(<Message variant='danger'>{error.error}</Message>):(<>
-             <h1>Latest products</h1>
-        <Row>
-            
-            {products.map((product,index)=>
-            (
-                <Col sm={12} md={6} lg={4} xl={3}>
-                   <Product  product={product} key={index} />
-                </Col>
+          <h1>Latest products</h1>
+          <Row>
+            {products.map((product, index) => (
+              <Col sm={12} md={6} lg={4} xl={3}>
+                <Product product={product} key={index} />
+              </Col>
             ))}
-        </Row>
-            </>)
-        }
-       
+          </Row>
         </>
-    );
-}
+      )}
+    </>
+  );
+};
 export default HomeScreen;
