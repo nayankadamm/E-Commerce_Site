@@ -6,10 +6,13 @@ const PORT = process.env.PORT;
 import connectDB from './config/db.js';
 connectDB();//conected mongooose
 import {notFound,errorHandler} from './middleware/errorMiddleware.js';
-import router from './routes/productRoutes.js';
+import productRoutes from './routes/productRoutes.js';
+import userRoutes from "./routes/userRoutes.js"
 
-app.use('/',router);
-app.use('/api/products',router);
+
+app.use('/',productRoutes);
+app.use('/api/products',productRoutes);
+app.use('/api/user',userRoutes)
 
 app.use(notFound);
 app.use(errorHandler);
