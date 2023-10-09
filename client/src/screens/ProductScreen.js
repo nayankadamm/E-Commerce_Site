@@ -17,7 +17,8 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../slices/cartSlice";
-const ProductScreen = () => {
+const ProductScreen = () => 
+{
   const { id: productId } = useParams();
 
   //cart state
@@ -30,7 +31,8 @@ const ProductScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const addCartHandler = () => {
+  const addCartHandler = () =>
+   {
     dispatch(addToCart({ ...product, qty }));
 
     navigate("/cart");
