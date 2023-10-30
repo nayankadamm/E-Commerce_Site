@@ -1,14 +1,14 @@
 import React from 'react'
 import { Row,Col,Image,Form,ListGroup,Button,Card } from 'react-bootstrap'
-import { UseSelector, useSelector } from 'react-redux/es/hooks/useSelector'
+import {  useSelector } from 'react-redux/es/hooks/useSelector'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import Message from './Message'
+import Message from '../components/Message'
 import { Link } from 'react-router-dom'
 import { addToCart, removeFromCart } from '../slices/cartSlice'
 import { FaTrash } from 'react-icons/fa'
-const cartScreen = () => {
-
+const cartScreen = () => 
+{
     const cart = useSelector((state)=>state.cart);
     const {cartItems} = cart;
     const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const cartScreen = () => {
     }
 
     const proceedToCheckOut=()=>{
-        navigate('/login?redrect=/shipping')
+        navigate('/login?redirect=/shipping')
     }
 return(
 
@@ -106,6 +106,7 @@ return(
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <Button variant='secondary'
+                            disabled ={cartItems.length===0}
                             onClick={proceedToCheckOut}
                         >
                             Proceed To checkout

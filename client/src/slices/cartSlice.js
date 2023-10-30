@@ -4,9 +4,10 @@ import { upadateCart } from "../utils/cartUtils";
 
 const initialState = localStorage.getItem("cart")
   ? JSON.parse(localStorage.getItem("cart"))
-  : { cartItems: [] };
+  : { cartItems: [],shippingAddress:{},paymentMethod:'PayPal' };
 
-const cartSlice = createSlice({
+const cartSlice = createSlice(
+  {
   name: "cart",
   initialState,
   reducers: {
@@ -18,24 +19,32 @@ const cartSlice = createSlice({
       //if item exist then we will add that item to existing items
       if (existItem) {
         state.cartItems = state.cartItems.map((x) =>
-          x._id == existItem._id ? item : x
+          x._id === existItem._id ? item : x
         );
       }
-
       //if item doesnt exist then we will add that item to cart
-      else {
+      else 
+      {
         state.cartItems = [...state.cartItems, item];
       }
 
       return upadateCart(state);
     },
-    removeFromCart: (state, action) => {
+    removeFromCart: (state, action) =>
+    {
       state.cartItems = state.cartItems.filter((x) => x._id !== action.payload);
       return upadateCart(state);
     },
+    saveShippingAddress:(state,action)=>{
+      state.shippingAddress = action.payload;
+      localStorage.setItem('cart',JSON.stringify(state));
+      return upadateCart(state);
+    },
+    savePaymentMethod:(state,action)=>{
+      state.paymentMethod = action.payload;
+      return upadateCart(state);
+    }
   },
 });
-
-export const { addToCart, removeFromCart } = cartSlice.actions;
-
+export const { addToCart, removeFromCart,saveShippingAddress,savePaymentMethod} = cartSlice.actions;
 export default cartSlice.reducer;
